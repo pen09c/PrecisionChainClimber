@@ -1,0 +1,24 @@
+# Minecraft-Skript-PrecisionChainClimber
+# Version 1.0
+
+every 2 ticks:
+    loop all players:
+        set {_foundChain} to false
+        loop blocks in radius 1 around loop-player:
+            if "%loop-block%" contains "chain":
+                set {_foundChain} to true
+        if {_foundChain} is true:
+            if loop-player's pitch <= -35:
+                set velocity of loop-player to new vector 0, 0.22, 0
+            else if loop-player is sneaking:
+                set velocity of loop-player to new vector 0, 0.05, 0
+            else if loop-player's pitch >= 35:
+                set velocity of loop-player to new vector 0, -0.15, 0
+on damage:
+	if damage cause is fall:
+		set {_checkChain} to false
+		loop blocks in radius 1 around victim:
+			if "%loop-block%" contains "chain":
+				set {_checkChain} to true
+		if {_checkChain} is true:
+			cancel event
